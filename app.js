@@ -45,6 +45,9 @@ function addTask(e) {
   // append li to ul
   taskList.appendChild(li);
 
+  // Store in LS
+  storeTaskInLocalStorege(taskInput.value);
+
   // Clear input
   taskList.value = '';
 
@@ -52,7 +55,25 @@ function addTask(e) {
 }
 // ------- end addTask
 
-// Remve Task
+// add to localstorage
+function storeTaskInLocalStorege(task) {
+  let tasks;
+
+  if(localStorage.getItem('tasks') === null) {
+    tasks = []
+  } else {
+    tasks = JSON.parse(localStorage.getItem('tasks'));
+  }
+
+  tasks.push(task);
+
+  localStorage.setItem('tasks', JSON.stringify(tasks));
+
+}
+// -----end add to localstorage
+
+
+// Remove Task
 function removeTask(e) {
   if(e.target.parentElement.classList.contains('delete-item')) {
     if(confirm('Are you Sure')) {
@@ -96,3 +117,4 @@ function filterTasks(e) {
   console.log(text);
   e.preventDefault()
 }
+// -----end filter tasks
