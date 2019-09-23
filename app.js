@@ -50,7 +50,13 @@ function addTask(e) {
 
 // Remve Task
 function removeTask(e) {
-  console.log(e.target);
+  if(e.target.parentElement.classList.contains('delete-item')) {
+    e.target.parentElement.parentElement.remove();
+    console.log(e.target);
 
-  e.preventDefault();
+    e.preventDefault();
+  }
+  
+
+  // e.preventDefault();
 }
