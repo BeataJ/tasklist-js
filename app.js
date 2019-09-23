@@ -111,6 +111,9 @@ function removeTask(e) {
   if (e.target.parentElement.classList.contains("delete-item")) {
     if (confirm("Are you Sure")) {
       e.target.parentElement.parentElement.remove();
+
+      // Remove from LS
+      removeTaskFromLocalStorage(e.target.parentElement.parentElement);
     }
     e.preventDefault();
   }
@@ -118,6 +121,28 @@ function removeTask(e) {
   // e.preventDefault();
 }
 // -------end removeTask
+
+
+// Remove from LS
+function removeTaskFromLocalStorage(taskItem) {
+  let tasks;
+
+  if (localStorage.getItem("tasks") === null) {
+    tasks = [];
+  } else {
+    tasks = JSON.parse(localStorage.getItem("tasks"));
+  }
+
+  tasks.forEach((task, index) => {
+    if(taskItem.textContent === task) {
+      tasks.splice(index, 1);
+    }
+  });
+
+  localStorage.setItem('tasks', JSON.stringify(tasks));
+}
+// -----end remove from LS function
+
 
 // Clear Tasks
 function clearTasks(e) {
